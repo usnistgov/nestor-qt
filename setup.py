@@ -10,7 +10,9 @@ from version import get_version
 
 
 def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname), encoding='utf-8').read()
+    return open(
+        os.path.join(os.path.dirname(__file__), fname), encoding='utf-8'
+    ).read()
 
 
 VERSION = get_version()
@@ -18,14 +20,13 @@ VERSION = get_version()
 
 def run_setup(packages, install_requires, extras_require):
     setup(
-        name = "nist-nestor",
-        version = VERSION,
-        author = "Thurston Sexton",
-        author_email = "thurston.sexton@nist.gov",
-        description = ("Quantifying tacit human knowledge for Smart Manufacturing Maintenance,\
-                        for maintnenance-based investigatory analysis"),
-        keywords = "nlp smart manufacturing maintenance tag app",
-        url = "https://github.com/usnistgov/nestor/",
+        name="nestor-gui",
+        version=VERSION,
+        author="Thurston Sexton",
+        author_email="thurston.sexton@nist.gov",
+        description=("GUI options for NIST Nestor"),
+        keywords="nlp smart manufacturing maintenance tag app",
+        url="https://github.com/usnistgov/nestor-gui/",
         packages=packages,
         long_description=read('README.md'),
         classifiers=[
@@ -38,8 +39,8 @@ def run_setup(packages, install_requires, extras_require):
         ],
         entry_points={
             'console_scripts': [
-                'nestor-gui = nestor.ui:main',
-                'nestor-dash = nestor.dash:main',
+                'nestor-gui = ui:main',
+                'nestor-dash = dash:main',
                 # 'nestor-serve = nestor.dash.plotserve:main'
             ],
         },

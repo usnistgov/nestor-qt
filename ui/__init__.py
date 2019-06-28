@@ -1,3 +1,3 @@
 from .Nestor import main
-#from .selectCSVHeadersUI_app import load_header_mapping
-
+__all__ = ['main']
+# from .selectCSVHeadersUI_app import load_header_mapping
