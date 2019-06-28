@@ -5,7 +5,7 @@ from PyQt5 import uic
 import PyQt5.QtGui as Qg
 import PyQt5.QtWidgets as Qw
 from PyQt5.QtCore import Qt
-from nestor.store_data import integration as cypherQuery
+from store_data import integration as cypherQuery
 
 import pyaml
 import yaml
