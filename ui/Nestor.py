@@ -61,7 +61,7 @@ def main():
     MyTaggingToolWindow(
         projectsPath=projectsPath,
         iconPath=str(icon_path),
-        databaseToCsv_mapping=nestorParams._datatypes
+        databaseToCsv_mapping=nestorParams.datatypes
     )
     # sys.excepthook = exception_handler
     sys.exit(app.exec_())

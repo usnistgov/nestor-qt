@@ -38,7 +38,7 @@ class DataModel:
     @property
     def data_pprint(self):
         data = self._data_names
-        return [nestorParams._datatypes.get(name) for name in data]
+        return [nestorParams.datatypes.get(name) for name in data]
 
     @property
     def fname(self):

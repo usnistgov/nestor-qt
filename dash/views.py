@@ -28,7 +28,7 @@ ALLOWED_EXTENSIONS = set(['csv', 'h5'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 FILES = []
 
-from nestor.dash.models import DataModel
+from dash.models import DataModel
 data_model = DataModel()
 
 hostname='localhost'
@@ -48,7 +48,7 @@ hostname='localhost'
 #             fo.write("<div style='overflow-y: scroll; height:600px;'>")
 #             df.to_html(fo, classes=['table table-striped'])
 #             fo.write("</div>")
-    
+
 # locally creates a page
 @app.route('/')
 def index():
@@ -181,4 +181,3 @@ if __name__ == '__main__':
     # runs app in debug mode
         main()
         # app.run()
-  
