@@ -5,11 +5,8 @@ segments_6
 .idea/
 **/.ipynb_checkpoints
 
-# data folder
-<<<<<<< HEAD
-data/
-=======
-data/**
+
+# Sphinx stuff
 build
 dist
 _build
@@ -17,8 +14,6 @@ _static
 _templates
 _pdf
 .doctrees
-dist
->>>>>>> master
 
 #   special file type
 **.pyc
@@ -29,10 +24,6 @@ dist
 
 
 # exception
-<<<<<<< HEAD
-=======
-!nestor/settings.yaml
-!nestor/datasets/**
 !nestor/store_data/*.yaml
 !nestor/ui/csvHeader.yaml
->>>>>>> master
+
