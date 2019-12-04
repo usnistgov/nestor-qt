@@ -1,7 +1,5 @@
 include *.md *.rst *.ui
+recursive-include source *
 include requirements/*.txt
 include ui/*
-include dash/templates/*.html
-include dash/templates/includes/*.html
-include dash/static/*
 include version.py

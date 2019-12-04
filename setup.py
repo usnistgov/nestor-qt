@@ -20,7 +20,7 @@ VERSION = get_version()
 
 def run_setup(packages, install_requires, extras_require):
     setup(
-        name="nestor-gui",
+        name="nestor-qt",
         version=VERSION,
         author="Thurston Sexton",
         author_email="thurston.sexton@nist.gov",
@@ -39,8 +39,8 @@ def run_setup(packages, install_requires, extras_require):
         ],
         entry_points={
             'console_scripts': [
-                'nestor-gui = ui:main',
-                'nestor-dash = dash:main',
+                'nestor-qt = ui:main',
+                # 'nestor-dash = dash:main',
                 # 'nestor-serve = nestor.dash.plotserve:main'
             ],
         },
@@ -66,10 +66,9 @@ def get_reqs(name):
 install_requires = get_reqs('defaults')
 extras_require = {
     'docs': get_reqs('docs'),
-    'dash': get_reqs('dash'),
+    # 'dash': get_reqs('dash'),
 }
 
-extras_require['all'] = extras_require['dash'] +\
-                        extras_require['docs']
+extras_require['all'] = extras_require['docs']
 
 run_setup(packages, install_requires, extras_require)
