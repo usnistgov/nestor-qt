@@ -1079,9 +1079,9 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
         self.dialogMenu_csvHeaderMapping.setGeometry(rect)
 
         def onclick_ok():
-            nlpHeader, csvMapping = self.dialogMenu_csvHeaderMapping.get_data()
-            if nlpHeader:
-                self.set_config(nlpHeader=nlpHeader, csvMapping=csvMapping)
+            nlpheader, mapping = self.dialogMenu_csvHeaderMapping.get_data()
+            if nlpheader:
+                self.set_config(nlpheader=nlpheader, mapping=mapping)
                 self.dialogMenu_csvHeaderMapping.close()
 
                 self.whenProjectOpen()
@@ -1531,7 +1531,7 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
     # numberTokens=None, alreadyChecked_threshold=None,
     # showCkeckBox_threshold=None, untrackedTokenList=None,
     # username=None, schema=None, server=None, serverport=None,
-    # browserport=None, nlpHeader=None, csvMapping=None,
+    # browserport=None, nlpheader=None, mapping=None,
 
     def set_config(self, **kwargs):
         """ When changing an information that needs to be saved
@@ -1605,10 +1605,10 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
         # if untrackedTokenList is not None:
         #     print(untrackedTokenList)
         #     self.config['csvinfo']["untracked_token"] = untrackedTokenList
-        # if nlpHeader is not None:
-        #     self.config['csvinfo']["nlpheader"] = nlpHeader
-        # if csvMapping is not None:
-        #     self.config['csvinfo']["mapping"] = csvMapping
+        # if nlpheader is not None:
+        #     self.config['csvinfo']["nlpheader"] = nlpheader
+        # if mapping is not None:
+        #     self.config['csvinfo']["mapping"] = mapping
         #
         # if username is not None:
         #     self.config['database']["username"] = username
@@ -2236,8 +2236,8 @@ class MyTaggingToolWindow_research(MyTaggingToolWindow):
             vocab1g = "vocab1g"
             vocabNg = "vocabNg"
             original = "excavators.csv"
-            nlpHeader = ["OriginalShorttext"]
-            csvMapping = {
+            nlpheader = ["OriginalShorttext"]
+            mapping = {
                 'BscStartDate': 'Work Order Start Time-stamp',
                 'Asset': 'Machine Name',
                 'OriginalShorttext': 'Description of Problem'
@@ -2271,8 +2271,8 @@ class MyTaggingToolWindow_research(MyTaggingToolWindow):
                         vocab1g=vocab1g,
                         vocabNg=vocabNg,
                         original=original,
-                        nlpHeader=nlpHeader,
-                        csvMapping=csvMapping,
+                        nlpheader=nlpheader,
+                        mapping=mapping,
                         research_savetype=savetype)
 
         self.whenProjectOpen()

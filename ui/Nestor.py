@@ -1,15 +1,16 @@
-import nestor
-from ui.taggingUI_app import MyTaggingToolWindow  # ,openYAMLConfig_File
+import sys
+import traceback
 from multiprocessing import freeze_support
+from pathlib import Path
 
 import PyQt5.QtGui as Qg
 import PyQt5.QtWidgets as Qw
-# from PyQt5.QtCore import Qt
-
 from PyQt5 import QtCore
-import sys
-import traceback
-from pathlib import Path
+
+import nestor
+from ui.taggingUI_app import MyTaggingToolWindow  # ,openYAMLConfig_File
+
+# from PyQt5.QtCore import Qt
 
 nestorParams = nestor.CFG
 

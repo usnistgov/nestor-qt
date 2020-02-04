@@ -5,6 +5,8 @@ segments_6
 .idea/
 **/.ipynb_checkpoints
 
+# egg-info stuff (setup-tools)
+*.egg-info
 
 # Sphinx stuff
 build
