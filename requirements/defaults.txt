@@ -1,4 +1,4 @@
-nist-nestor>=0.3
+nestor>=0.3
 numpy>=1.14.2
 pandas>=0.22.0
 joblib>=0.14.0
@@ -9,4 +9,3 @@ chardet
 seaborn>=0.8.1
 matplotlib>=2.2.2
 fuzzywuzzy
-tqdm
