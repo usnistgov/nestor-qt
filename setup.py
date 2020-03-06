@@ -66,7 +66,6 @@ def get_reqs(name):
 install_requires = get_reqs('defaults')
 extras_require = {
     'docs': get_reqs('docs'),
-    # 'dash': get_reqs('dash'),
 }
 
 extras_require['all'] = extras_require['docs']
