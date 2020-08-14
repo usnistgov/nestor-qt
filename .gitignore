@@ -29,3 +29,5 @@ _pdf
 !nestor/store_data/*.yaml
 !nestor/ui/csvHeader.yaml
 
+/poetry.lock
+**/.mypy_cache/

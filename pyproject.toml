@@ -1,13 +1,31 @@
 [tool.poetry]
 name = "nestor-qt"
-version = "0.4.0"
+version = "1.4.1"
 description = ""
-authors = ["tbsexto"]
+authors = ["tbsexton <thurston.sexton@nist.gov>",
+           "saschaMoccozet"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
+pyqt5 = "^5.15.0"
+chardet = "^3.0.4"
 
 [tool.poetry.dev-dependencies]
+nestor = { path = "../nestor/", develop = true }
+taskipy = "^1.2.1"
+black = "^19.10b0"
+ipykernel = "^5.2.1"
+
+[tool.poetry.scripts]
+nestor-qt = 'nestor_qt:main'
+cv-download = 'cv_py.resources.datapackage:download_cli'
+
+
+[tool.taskipy.tasks]
+format = "task format_code && task format_docs"
+format_code = "black nestor_qt/*.py"
+format_docs = "black README.md && black docs/*.md"
+
 
 [build-system]
 requires = ["poetry>=0.12"]
