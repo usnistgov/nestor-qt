@@ -1,21 +1,43 @@
 [tool.poetry]
 name = "nestor-qt"
-version = "0.2.0"
+version = "0.0.0"
 description = "Legacy (Qt5) GUI for the Nestor annotation tool"
 authors = ["tbsexton <thurston.sexton@nist.gov>",
            "saschaMoccozet"]
+
+include = ["*.md", "*.rst", "*.ui",
+           "nestor_qt/*"]
+classifiers=[
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Manufacturing",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Programming Language :: Python :: 3",
+    "License :: Public Domain"
+]
+keywords = [ "nlp", "smart", "manufacturing", "maintenance", "tag", "app" ]
+homepage = "https://www.nist.gov/services-resources/software/nestor"
 
 [tool.poetry.dependencies]
 python = "^3.8"
 pyqt5 = "^5.15.0"
 chardet = "^3.0.4"
-
+nestor = "~0.4.0'"
 
 [tool.poetry.dev-dependencies]
 nestor = { path = "../nestor/", develop = true }
+# packaging stuff
 taskipy = "^1.2.1"
 black = "^19.10b0"
 ipykernel = "^5.2.1"
+# documentation stuff
+sphinx = "^3.2.1"
+sphinx_rtd_theme = "^0.5.0"
+sphinxcontrib-bibtex = "^1.0.0"
+numpydoc = "^1.1.0"
+m2r = "^0.2.1"
+nbsphinx = "^0.7.1"
+
 
 [tool.poetry.scripts]
 nestor-qt = 'nestor_qt:main'
@@ -24,6 +46,14 @@ nestor-qt = 'nestor_qt:main'
 format = "task format_code && task format_docs"
 format_code = "black nestor_qt/*.py"
 format_docs = "black README.md && black docs/*.md"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "semver"
+format = "{base}"
+
+[tool.poetry-dynamic-versioning.substitution]
 
 [build-system]
 requires = ["poetry>=0.12"]

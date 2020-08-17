@@ -1,5 +1,0 @@
-include *.md *.rst *.ui
-recursive-include source *
-include requirements/*.txt
-include ui/*
-include version.py
