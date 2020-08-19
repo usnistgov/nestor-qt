@@ -22,7 +22,7 @@ homepage = "https://www.nist.gov/services-resources/software/nestor"
 python = "^3.8"
 pyqt5 = "^5.15.0"
 chardet = "^3.0.4"
-nestor = "~0.4.0'"
+# nestor = "~0.4.0"
 
 [tool.poetry.dev-dependencies]
 nestor = { path = "../nestor/", develop = true }
@@ -37,6 +37,7 @@ sphinxcontrib-bibtex = "^1.0.0"
 numpydoc = "^1.1.0"
 m2r = "^0.2.1"
 nbsphinx = "^0.7.1"
+poetry-dynamic-versioning = "^0.8.3"
 
 
 [tool.poetry.scripts]
