@@ -4,7 +4,6 @@ from PyQt5.QtCore import Qt
 
 
 class QTableWidget_token(Qw.QTableWidget):
-
     def __init__(self):
         Qw.QTableWidget.__init__(self)
         # TODO set the resiz of the collumn and line to false
@@ -49,15 +48,11 @@ class QTableWidget_token(Qw.QTableWidget):
             self.setRowCount(min([nrows, self.vocab_limite]))
             for i in range(self.rowCount()):
                 for j in range(ncols - 1):  # ignore score column
-                    self.setItem(
-                        i, j, Qw.QTableWidgetItem(str(temp_df.iat[i, j]))
-                    )
+                    self.setItem(i, j, Qw.QTableWidgetItem(str(temp_df.iat[i, j])))
             try:
                 for index in self.userUpdate:
                     if index < 1000:
-                        self.item(index, 0).setBackground(
-                            Qg.QColor(77, 255, 184)
-                        )
+                        self.item(index, 0).setBackground(Qg.QColor(77, 255, 184))
 
             except AttributeError:
                 pass
@@ -70,16 +65,13 @@ class QTableWidget_token(Qw.QTableWidget):
 
 
 class QButtonGroup_similarityPattern(Qw.QButtonGroup):
-
     def __init__(self, layout):
         Qw.QButtonGroup.__init__(self)
         self.setExclusive(False)
         self.layout = layout
         self.spacer = None
 
-    def set_checkBoxes_initial(
-        self, token_list, autoMatch_score, dataframe, alias
-    ):
+    def set_checkBoxes_initial(self, token_list, autoMatch_score, dataframe, alias):
         """create and print the checkboxes
         check it on condition
 
@@ -105,11 +97,11 @@ class QButtonGroup_similarityPattern(Qw.QButtonGroup):
             self.layout.addWidget(btn)
 
             # auto_checked
-            if alias == '':
+            if alias == "":
                 if score >= autoMatch_score:
                     btn.setChecked(True)
             else:
-                if dataframe.loc[btn.text(), 'alias'] == alias:
+                if dataframe.loc[btn.text(), "alias"] == alias:
                     btn.setChecked(True)
 
         self.spacer = Qw.QSpacerItem(
@@ -181,7 +173,6 @@ class QButtonGroup_similarityPattern(Qw.QButtonGroup):
 
 
 class CompositionNGramItem:
-
     def __init__(self, layout):
         self.layout = layout
         self.nb_onegrame = 0
@@ -225,14 +216,12 @@ class CompositionNGramItem:
             "label_Ngram_conpositionClassificationText_" + token
         )
         layout.addWidget(
-            text_classification, self.nb_onegrame+1, 0, 1, 1, Qt.AlignTop
+            text_classification, self.nb_onegrame + 1, 0, 1, 1, Qt.AlignTop
         )
 
         label_ne = Qw.QLabel()
         label_ne.setText(classification)
-        label_ne.setObjectName(
-            "label_Ngram_conpositionClassificationValue_" + token
-        )
+        label_ne.setObjectName("label_Ngram_conpositionClassificationValue_" + token)
         layout.addWidget(label_ne, self.nb_onegrame + 1, 1, 1, 1)
 
         # Notes
@@ -252,47 +241,35 @@ class CompositionNGramItem:
 
             text_note = Qw.QLabel()
             text_note.setText("notes: ")
-            text_note.setObjectName(
-                "label_Ngram_conpositionNotesText_" + token
-            )
-            layout.addWidget(
-                text_note, self.nb_onegrame + 2, 0, 1, 1, Qt.AlignTop
-            )
+            text_note.setObjectName("label_Ngram_conpositionNotesText_" + token)
+            layout.addWidget(text_note, self.nb_onegrame + 2, 0, 1, 1, Qt.AlignTop)
 
             label_note = Qw.QLabel()
             label_note.setText(str(notes))
-            label_note.setObjectName(
-                "label_Ngram_conpositionNotesValue_" + token
-            )
+            label_note.setObjectName("label_Ngram_conpositionNotesValue_" + token)
             layout.addWidget(label_note, self.nb_onegrame + 2, 1, 1, 1)
 
         # Synonyms
         text_synonyms = Qw.QLabel()
         text_synonyms.setText("synonyms: ")
-        text_synonyms.setObjectName(
-            "label_Ngram_conpositionASynonymsText_" + token
-        )
-        layout.addWidget(
-            text_synonyms, self.nb_onegrame+3, 0, 1, 1, Qt.AlignTop
-        )
+        text_synonyms.setObjectName("label_Ngram_conpositionASynonymsText_" + token)
+        layout.addWidget(text_synonyms, self.nb_onegrame + 3, 0, 1, 1, Qt.AlignTop)
 
         label_synonyms = Qw.QLabel()
-        label_synonyms.setText('\n'.join(synonyms))
-        label_synonyms.setObjectName(
-            "label_Ngram_conpositionSynonymsValue_" + token
-        )
+        label_synonyms.setText("\n".join(synonyms))
+        label_synonyms.setObjectName("label_Ngram_conpositionSynonymsValue_" + token)
         layout.addWidget(label_synonyms, self.nb_onegrame + 3, 1, 1, 1)
 
         separator = Qw.QFrame()
         separator.setFrameShape(Qw.QFrame.HLine)
         separator.setFrameShadow(Qw.QFrame.Sunken)
         separator.setObjectName("separator" + token)
-        layout.addWidget(separator, self.nb_onegrame+4, 0, 1, 1)
+        layout.addWidget(separator, self.nb_onegrame + 4, 0, 1, 1)
         separator2 = Qw.QFrame()
         separator2.setFrameShape(Qw.QFrame.HLine)
         separator2.setFrameShadow(Qw.QFrame.Sunken)
         separator2.setObjectName("separator" + token)
-        layout.addWidget(separator2, self.nb_onegrame+4, 1, 1, 1)
+        layout.addWidget(separator2, self.nb_onegrame + 4, 1, 1, 1)
 
         return layout
 
@@ -313,23 +290,16 @@ class CompositionNGramItem:
         self.clearLayout(self.layout)
 
         for token_1gram in token_Ngram.split(" "):
-            match = (dataframe[
-                (dataframe['alias'] == token_1gram)
-                | (dataframe.index == token_1gram)
-            ])
+            match = dataframe[
+                (dataframe["alias"] == token_1gram) | (dataframe.index == token_1gram)
+            ]
             item = match.iloc[0]
             synonyms = match.index.tolist()
 
             gridLayout = Qw.QGridLayout()
-            gridLayout.setObjectName(
-                "gridLayout_Ngram_Composition" + token_1gram
-            )
+            gridLayout.setObjectName("gridLayout_Ngram_Composition" + token_1gram)
             gridLayout = self.printTokenView(
-                gridLayout,
-                token_1gram,
-                item["NE"],
-                item["notes"],
-                synonyms,
+                gridLayout, token_1gram, item["NE"], item["notes"], synonyms,
             )
             self.layout.addLayout(gridLayout)
             self.nb_onegrame += 5

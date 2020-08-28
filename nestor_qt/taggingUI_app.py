@@ -89,18 +89,24 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
                 "schema": str(script_dir.parent / "store_data" / "DatabaseSchema.yaml")
             },
             "classification": {
-                "mapping": {
-                    "I I": "I",
-                    "I P": "P I",
-                    "I S": "S I",
-                    "P I": "P I",
-                    "P P": "X",
-                    "P S": "X",
-                    "S I": "S I",
-                    "S P": "X",
-                    "S S": "X",
-                },
-                "type": "IPSUX",
+                "mapping": dict(
+                    filter(
+                        lambda item: item[1] != "",
+                        nestorParams.entity_rules_map.items(),
+                    )
+                ),
+                # {
+                #     "II": "I",
+                #     "IP": "PI",
+                #     "IS": "SI",
+                #     "PI": "PI",
+                #     "PP": "X",
+                #     "PS": "X",
+                #     "SI": "SI",
+                #     "SP": "X",
+                #     "SS": "X",
+                # },
+                "type": "".join(nestorParams.atomics),
             },
         }
         self.config = self.config_default.copy()
@@ -188,8 +194,8 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
         }
 
         self.classificationDictionary_NGram = {
-            "S I": self.radioButton_Ngram_SolutionItemEditor,
-            "P I": self.radioButton_Ngram_ProblemItemEditor,
+            "SI": self.radioButton_Ngram_SolutionItemEditor,
+            "PI": self.radioButton_Ngram_ProblemItemEditor,
             "I": self.radioButton_Ngram_ItemEditor,
             "U": self.radioButton_Ngram_UnknownEditor,
             "X": self.radioButton_Ngram_StopWordEditor,
@@ -200,8 +206,8 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
 
         self.buttonDictionary_NGram = {
             "Item": "I",
-            "Problem Item": "P I",
-            "Solution Item": "S I",
+            "Problem Item": "PI",
+            "Solution Item": "SI",
             "Ambiguous (Unknown)": "U",
             "Irrelevant (Stop-word)": "X",
             "Problem": "P",
@@ -958,13 +964,13 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
 
     def setMenu_autopopulateNgramFrom1gram(self):
 
-        NE_types = self.config["classification"].get("type")
-        NE_map_rules = self.config["classification"].get("mapping")
+        # NE_types = self.config["classification"].get("type")
+        # NE_map_rules = self.config["classification"].get("mapping")
         self.dataframe_vocabNGram = kex.ngram_automatch(
             self.dataframe_vocab1Gram,
             self.dataframe_vocabNGram,
-            NE_types,
-            NE_map_rules,
+            # NE_types,
+            # NE_map_rules,
         )
 
         self.printDataframe_TableviewProgressBar(
@@ -1354,7 +1360,7 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
 
         if not alias:
             alias = token
-            if classification == "I":
+            if classification in nestorParams.atomics:
                 alias = "_".join(alias.split(" "))
 
         self.lineEdit_Ngram_AliasEditor.setText(alias)
@@ -1517,7 +1523,7 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
                 self.buttonDictionary_NGram.get(
                     self.buttonGroup_NGram_Classification.checkedButton().text(), ""
                 )
-                == "I"
+                in nestorParams.atomics
             ):
                 self.dataframe_vocabNGram.at[token, "alias"] = "_".join(
                     self.lineEdit_Ngram_AliasEditor.text().split(" ")
@@ -1970,37 +1976,49 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
 
         Qw.QApplication.processEvents()
 
-        print("SAVE IN PROCESS --> " "calculating the extracted tags and statistics...")
-        # do 1-grams
-        print("ONE GRAMS...")
-        tags_df = kex.tag_extractor(
-            self.tokenExtractor_1Gram,
+        # print("SAVE IN PROCESS --> " "calculating the extracted tags and statistics...")
+        # # do 1-grams
+        # print("ONE GRAMS...")
+        # tags_df = kex.tag_extractor(
+        #     self.tokenExtractor_1Gram,
+        #     self.clean_rawText,
+        #     vocab_df=self.dataframe_vocab1Gram,
+        # )
+        # # self.tags_read = kex._get_readable_tag_df(self.tags_df)
+        # window_DialogWait.setProgress(30)
+
+        # # do 2-grams
+        # print("TWO GRAMS...")
+        # tags2_df = kex.tag_extractor(
+        #     self.tokenExtractor_nGram,
+        #     self.clean_rawText_1Gram,
+        #     vocab_df=self.dataframe_vocabNGram[self.dataframe_vocabNGram.alias.notna()],
+        # )
+
+        # window_DialogWait.setProgress(60)
+
+        # # merge 1 and 2-grams.
+        # self.tag_df = tags_df.join(
+        #     tags2_df.drop(
+        #         axis="columns", labels=tags_df.columns.levels[1].tolist(), level=1
+        #     )
+        # )
+        # self.tag_readable = kex._get_readable_tag_df(self.tag_df)
+
+        # self.relation_df = self.tag_df.loc[:, ["P I", "S I"]]
+        # self.tag_df = self.tag_df.loc[:, ["I", "P", "S", "U", "NA"]]
+
+        (
+            self.tag_df,
+            self.relation_df,
+            self.dataframe_vocab1Gram,
+        ) = kex.ngram_keyword_pipe(
             self.clean_rawText,
-            vocab_df=self.dataframe_vocab1Gram,
+            self.dataframe_vocab1Gram,
+            self.dataframe_vocabNGram[self.dataframe_vocabNGram.alias.notna()],
         )
-        # self.tags_read = kex._get_readable_tag_df(self.tags_df)
-        window_DialogWait.setProgress(30)
-
-        # do 2-grams
-        print("TWO GRAMS...")
-        tags2_df = kex.tag_extractor(
-            self.tokenExtractor_nGram,
-            self.clean_rawText_1Gram,
-            vocab_df=self.dataframe_vocabNGram[self.dataframe_vocabNGram.alias.notna()],
-        )
-
-        window_DialogWait.setProgress(60)
-
-        # merge 1 and 2-grams.
-        self.tag_df = tags_df.join(
-            tags2_df.drop(
-                axis="columns", labels=tags_df.columns.levels[1].tolist(), level=1
-            )
-        )
-        self.tag_readable = kex._get_readable_tag_df(self.tag_df)
-
-        self.relation_df = self.tag_df.loc[:, ["P I", "S I"]]
-        self.tag_df = self.tag_df.loc[:, ["I", "P", "S", "U", "NA"]]
+        window_DialogWait.setProgress(50)
+        self.tags_read = kex._get_readable_tag_df(self.tag_df)
 
         # do statistics
         tag_pct, tag_comp, tag_empt = kex.get_tag_completeness(self.tag_df)
@@ -2186,10 +2204,10 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
         self.label_report_table_NumberwordItem.setText(str(totalword.get("I", "")))
         self.label_report_table_NumberwordSolution.setText(str(totalword.get("S", "")))
         self.label_report_table_NumberwordProblemitem.setText(
-            str(totalword.get("P I", ""))
+            str(totalword.get("PI", ""))
         )
         self.label_report_table_NumberwordSolutionitem.setText(
-            str(totalword.get("S I", ""))
+            str(totalword.get("SI", ""))
         )
         self.label_report_table_NumberwordAmbiguous.setText(str(totalword.get("U", "")))
         self.label_report_table_NumberwordIrrelevante.setText(
@@ -2209,10 +2227,10 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
         self.label_report_table_NumbertagItem.setText(str(totaltag.get("I", "")))
         self.label_report_table_NumbertagSolution.setText(str(totaltag.get("S", "")))
         self.label_report_table_NumbertagProblemitem.setText(
-            str(totaltag.get("P I", ""))
+            str(totaltag.get("PI", ""))
         )
         self.label_report_table_NumbertagSolutionitem.setText(
-            str(totaltag.get("S I", ""))
+            str(totaltag.get("SI", ""))
         )
         self.label_report_table_NumbertagAmbiguous.setText(str(totaltag.get("U", "")))
         self.label_report_table_NumbertagIrrelevant.setText(str(totaltag.get("X", "")))
@@ -2230,10 +2248,10 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
             "{:.1%}".format(totalfrac.get("S", 0.0))
         )
         self.label_report_table_FractionProblemitem.setText(
-            "{:.1%}".format(totalfrac.get("P I", 0.0))
+            "{:.1%}".format(totalfrac.get("PI", 0.0))
         )
         self.label_report_table_FractionSolutionitem.setText(
-            "{:.1%}".format(totalfrac.get("S I", 0.0))
+            "{:.1%}".format(totalfrac.get("SI", 0.0))
         )
         self.label_report_table_FractionAmbiguous.setText(
             "{:.1%}".format(totalfrac.get("U", 0.0))
