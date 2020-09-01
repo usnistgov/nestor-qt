@@ -130,7 +130,7 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
 
         self.tfidf_ng = None
         self.tfidf_1g = None
-        self.clean_rawText_1Gram = None
+        # self.clean_rawText_1Gram = None
         self.clean_rawText = None
 
         self.tag_df = None
@@ -1343,14 +1343,15 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
         # selected row
         items = self.tableWidget_Ngram_TagContainer.selectedItems()
         token, classification, alias, notes = (str(i.text()) for i in items)
+        # print(self.tokenExtractor_nGram)
+        # loc = self.tokenExtractor_nGram.ranks_[
+        #     self.dataframe_vocabNGram.index.get_loc(token)
+        # ]
+        # mask = self.tfidf_ng[:, loc].todense() > 0
 
-        loc = self.tokenExtractor_nGram.ranks_[
-            self.dataframe_vocabNGram.index.get_loc(token)
-        ]
-        mask = self.tfidf_ng[:, loc].todense() > 0
         tooltip = str(
             "<br><br>".join(
-                self.together[(mask.flatten().tolist()[0])].head(3).tolist()
+                self.together[self.clean_rawText.str.contains(token)].head(3).tolist()
             )
         )
 
@@ -1690,7 +1691,7 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
         # sklearn-style TF-IDF calc
         self.tokenExtractor_1Gram = kex.TokenExtractor()
         self.tokenExtractor_nGram = kex.TokenExtractor(ngram_range=(2, 2))
-        self.clean_rawText_1Gram = None
+        # self.clean_rawText_1Gram = None
         self.clean_rawText = None
         self.tfidf_ng = None
         self.tfidf_1g = None
@@ -1806,17 +1807,25 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
         Create the Ngram Vocab from the 1G vocab and the original dataframe
         :return:
         """
-        self.clean_rawText_1Gram = kex.token_to_alias(
-            self.clean_rawText, self.dataframe_vocab1Gram
-        )
+        # self.clean_rawText_1Gram = kex.token_to_alias(
+        #     self.clean_rawText, self.dataframe_vocab1Gram
+        # )
 
-        self.tfidf_ng = self.tokenExtractor_nGram.fit_transform(
-            self.clean_rawText_1Gram
+        self.dataframe_vocabNGram, self.tokenExtractor_nGram = kex.ngram_vocab_builder(
+            self.clean_rawText,
+            self.dataframe_vocab1Gram,
+            init=init,
+            # init=self.dataframe_vocabNGram,
         )
+        self.tfidf_ng = self.tokenExtractor_nGram.transform(self.clean_rawText)
 
-        self.dataframe_vocabNGram = kex.generate_vocabulary_df(
-            self.tokenExtractor_nGram, filename=vocabNgPath, init=init
-        )
+        # self.tfidf_ng = self.tokenExtractor_nGram.fit_transform(
+        #     self.clean_rawText_1Gram
+        # )
+
+        # self.dataframe_vocabNGram = kex.generate_vocabulary_df(
+        #     self.tokenExtractor_nGram, filename=vocabNgPath, init=init
+        # )
 
     def update_progress_bar(self, progressBar, dataframe):
         """set the value of the progress bar based on the dataframe score
@@ -1835,7 +1844,7 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
         scores = dataframe["score"]
         matched = scores[dataframe["NE"] != ""]
         completed_pct = matched.sum() / scores.sum()
-        progressBar.setValue(100 * completed_pct)
+        progressBar.setValue(int(100 * completed_pct))
 
     def setAliasFromNgramButton(self, button):
         """
@@ -1845,7 +1854,9 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
         :param button:
         :return:
         """
-        if button == self.classificationDictionary_NGram.get("I"):
+        if button in [
+            self.classificationDictionary_NGram.get(i) for i in nestorParams.atomics
+        ]:
             alias = "_".join(self.lineEdit_Ngram_AliasEditor.text().split(" "))
             self.lineEdit_Ngram_AliasEditor.setText(alias)
         else:
@@ -1904,6 +1915,7 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
                 if enum is not None:
                     new_idx = (enum + 1) % list_len
                     # print(enum, new_idx)
+                    #
                     (
                         self.buttonGroup_similarityPattern.buttons_list[
                             new_idx
@@ -2010,12 +2022,10 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
 
         (
             self.tag_df,
-            self.relation_df,
-            self.dataframe_vocab1Gram,
+            self.relation_df
+            # self.dataframe_vocab1Gram,
         ) = kex.ngram_keyword_pipe(
-            self.clean_rawText,
-            self.dataframe_vocab1Gram,
-            self.dataframe_vocabNGram[self.dataframe_vocabNGram.alias.notna()],
+            self.clean_rawText, self.dataframe_vocab1Gram, self.dataframe_vocabNGram,
         )
         window_DialogWait.setProgress(50)
         self.tags_read = kex._get_readable_tag_df(self.tag_df)
@@ -2084,7 +2094,12 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
             else:
                 col_map = dict()
             save_df = (
-                self.dataframe_Original[list(col_names.keys())]
+                self.dataframe_Original[
+                    list(  # TODO nonetype is not iterable?
+                        set(col_names.keys())
+                        | set(self.config["csvinfo"].get("nlpheader"))
+                    )
+                ]
                 .join(self.tag_readable, lsuffix="_pre")
                 .rename(columns=col_map)
             )
