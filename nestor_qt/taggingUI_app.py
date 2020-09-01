@@ -1811,7 +1811,12 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
         #     self.clean_rawText, self.dataframe_vocab1Gram
         # )
 
-        self.dataframe_vocabNGram, self.tokenExtractor_nGram = kex.ngram_vocab_builder(
+        (
+            self.dataframe_vocabNGram,
+            self.tokenExtractor_nGram,
+            _,
+            _,
+        ) = kex.ngram_vocab_builder(
             self.clean_rawText,
             self.dataframe_vocab1Gram,
             init=init,
@@ -2028,7 +2033,9 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
             self.clean_rawText, self.dataframe_vocab1Gram, self.dataframe_vocabNGram,
         )
         window_DialogWait.setProgress(50)
-        self.tags_read = kex._get_readable_tag_df(self.tag_df)
+        self.tag_readable = kex._get_readable_tag_df(
+            self.tag_df.combine_first(self.relation_df)
+        )
 
         # do statistics
         tag_pct, tag_comp, tag_empt = kex.get_tag_completeness(self.tag_df)
@@ -2093,16 +2100,12 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
                 }
             else:
                 col_map = dict()
+            print(self.tag_readable.head())
             save_df = (
-                self.dataframe_Original[
-                    list(  # TODO nonetype is not iterable?
-                        set(col_names.keys())
-                        | set(self.config["csvinfo"].get("nlpheader"))
-                    )
-                ]
+                self.dataframe_Original[list(col_names.keys())]
                 .join(self.tag_readable, lsuffix="_pre")
                 .rename(columns=col_map)
-            )
+            )  # TODO nonetype is not iterable?
             save_df.to_csv(fname)
             # self.dataframe_Original.join(self.tag_readable, lsuffix="_pre")
             # .to_csv(fname)
