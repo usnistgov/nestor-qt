@@ -43,6 +43,7 @@ taskipy = "^1.2.1"
 black = "^19.10b0"
 ipykernel = "^5.2.1"
 poetry-dynamic-versioning = "^0.8.3"
+briefcase = "^0.3.3"
 
 [tool.poetry.extras]
 docs = [
@@ -73,3 +74,39 @@ format = "{base}"
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
+
+# Briefcase app packaging
+[tool.briefcase]
+project_name = "Nestor Qt"
+bundle = "gov.nist"
+version = "0.0.1"
+url = "https://www.nist.gov/services-resources/software/nestor"
+license = "Other"
+author = 'Thurston Sexton'
+author_email = "tbs4@nist.gov"
+
+[tool.briefcase.app.nestor-qt]
+formal_name = "Nestor Qt"
+description = "Legacy (Qt5) GUI for the Nestor annotation tool"
+icon = "src/nestor_qt/resources/nestor-qt"
+sources = ['src/nestor_qt']
+requires = []
+
+
+[tool.briefcase.app.nestor-qt.macOS]
+requires = []
+
+[tool.briefcase.app.nestor-qt.linux]
+requires = []
+system_requires = []
+
+[tool.briefcase.app.nestor-qt.windows]
+requires = []
+
+# Mobile deployments
+[tool.briefcase.app.nestor-qt.iOS]
+requires = []
+
+[tool.briefcase.app.nestor-qt.android]
+requires = []
