@@ -20,7 +20,7 @@ homepage = "https://www.nist.gov/services-resources/software/nestor"
 repository = "https://github.com/usnistgov/nestor-qt"
 
 packages = [
-    { include = "src/nestor_qt" },
+    { include = "nestor_qt" },
 ]
 
 [tool.poetry.dependencies]
@@ -56,11 +56,11 @@ docs = [
 ]
 
 [tool.poetry.scripts]
-nestor-qt = 'src/nestor_qt:main'
+nestor-qt = 'nestor_qt:main'
 
 [tool.taskipy.tasks]
 format = "task format_code && task format_docs"
-format_code = "black src/*.py"
+format_code = "black nestor_qt/*.py"
 format_docs = "black README.md && black docs/*.md"
 
 [tool.poetry-dynamic-versioning]
@@ -85,8 +85,8 @@ author_email = "tbs4@nist.gov"
 [tool.briefcase.app.nestor-qt]
 formal_name = "Nestor Qt"
 description = "Legacy (Qt5) GUI for the Nestor annotation tool"
-icon = "src/src/resources/nestor-qt"
-sources = ['src/src']
+icon = "nestor_qt/resources/nestor-qt"
+sources = ['nestor_qt']
 requires = []
 
 [tool.briefcase.app.nestor-qt.macOS]
