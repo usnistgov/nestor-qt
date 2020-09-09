@@ -10,7 +10,7 @@ from store_data import integration as cypherQuery
 import pyaml
 import yaml
 
-script_dir = Path(__file__).parent
+script_dir = Path(__file__).parent/"resources"
 
 fname_newproject = "dialogmenu_newproject.ui"
 qtDesignerFile_newproject = script_dir / fname_newproject

@@ -49,7 +49,7 @@ if dbModule_exists:
 nestorParams = nestor.CFG
 
 fname = "taggingUI.ui"
-script_dir = Path(__file__).parent
+script_dir = Path(__file__).parent/"resources"
 Ui_MainWindow_taggingTool, QtBaseClass_taggingTool = uic.loadUiType(script_dir / fname)
 
 

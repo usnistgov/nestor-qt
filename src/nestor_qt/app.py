@@ -1,3 +1,7 @@
+"""
+Legacy (Qt5) GUI for the Nestor annotation tool
+"""
+
 import sys
 import traceback
 from multiprocessing import freeze_support
@@ -57,7 +61,7 @@ def main():
     #     yaml_path= nestorPath / 'store_data' / 'csvHeader.yaml'
     # )
 
-    icon_path = Path(__file__).parent / "ui" / "kea-icon.png"
+    icon_path = Path(__file__).parent / "resources" / "nestor-qt.png"
     app.setWindowIcon(Qg.QIcon(str(icon_path)))
 
     app.setStyleSheet(stylesheet)
