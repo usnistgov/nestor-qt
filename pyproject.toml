@@ -22,42 +22,46 @@ packages = [
     { include = "nestor_qt" },
 ]
 
+[tool.poetry.scripts]
+nestor-qt = 'nestor_qt.app:main'
+
 [tool.poetry.dependencies]
 python               = "^3.7"
 pyqt5                = "^5.15.0"
 chardet              = "^3.0.4"
-nist-nestor = "^0.4.2"
 pyaml = "^20.4.0"
 # nestor               = "~0.4.0"
 # documentation stuff
-sphinx               = { version = "^3.2.1", optional= true }
-sphinx_rtd_theme     = { version = "^0.5.0", optional= true }
-sphinxcontrib-bibtex = { version = "^1.0.0", optional= true }
-numpydoc             = { version = "^1.1.0", optional= true }
-m2r                  = { version = "^0.2.1", optional= true }
-nbsphinx             = { version = "^0.7.1", optional= true }
+# sphinx               = { version = "^3.2.1", optional= true }
+# sphinx_rtd_theme     = { version = "^0.5.0", optional= true }
+# sphinxcontrib-bibtex = { version = "^1.0.0", optional= true }
+# numpydoc             = { version = "^1.1.0", optional= true }
+# m2r                  = { version = "^0.2.1", optional= true }
+# nbsphinx             = { version = "^0.7.1", optional= true }
+nist-nestor = "^0.4.3"
+seaborn = "^0.11.0"
 
 [tool.poetry.dev-dependencies]
 # nestor = { path = "../nestor/dist/nestor-0.4.0.tar.gz", develop = true }
 # packaging stuff
 taskipy = "^1.2.1"
 black = "^19.10b0"
-ipykernel = "^5.2.1"
+# ipykernel = "^5.2.1"
 poetry-dynamic-versioning = "^0.8.3"
 briefcase = "^0.3.3"
+# pyinstaller = "^4.0"
+# pyinstaller-hooks-contrib = "^2020.8"
 
-[tool.poetry.extras]
-docs = [
-    "sphinx",
-    "sphinx_rtd_theme",
-    "sphinxcontrib-bibtex",
-    "numpydoc",
-    "m2r",
-    "nbsphinx"
-]
+# [tool.poetry.extras]
+# docs = [
+#     "sphinx",
+#     "sphinx_rtd_theme",
+#     "sphinxcontrib-bibtex",
+#     "numpydoc",
+#     "m2r",
+#     "nbsphinx"
+# ]
 
-[tool.poetry.scripts]
-nestor-qt = 'nestor_qt:main'
 
 [tool.taskipy.tasks]
 format = "task format_code && task format_docs"
@@ -95,16 +99,20 @@ requires = []
 
 [tool.briefcase.app.nestor-qt.linux]
 requires = [
-    'nist-nestor==0.4.2',
+    'nist-nestor>=0.4.3',
     'pyqt5>=5.15.0',
     'chardet>=3.0.4',
     'pyaml>=20.4.0'
 ]
 system_requires = [
+    'libinput',
+    'libudev',
+    'libevdev',
     'libglu1-mesa-dev',
     'libpulse-dev',
     'libasound2',
-    'libqt5gui5'
+    'libqt5gui5',
+    'qt5-default'
 ]
 
 [tool.briefcase.app.nestor-qt.windows]
