@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nestor-qt"
-version = "0.2.0"
+version = "0.3.1"
 description = "Legacy (Qt5) GUI for the Nestor annotation tool"
 authors = ["tbsexton <thurston.sexton@nist.gov>",
            "saschaMoccozet"]
@@ -105,6 +105,9 @@ requires = [
     'pyaml>=20.4.0'
 ]
 system_requires = [
+    "python3-pyqt5",
+    "python3-pyqt5.qtopengl",
+    "python3-pyqt5.qtquick",
     'libglu1-mesa-dev',
     'libpulse-dev',
     'libasound2',
