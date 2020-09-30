@@ -23,7 +23,7 @@ Description:
 
 from datetime import datetime
 
-from store_data.helper import isoStringToDate, standardizeString
+from nestor_qt.store_data.helper import isoStringToDate, standardizeString
 
 
 class Issue:

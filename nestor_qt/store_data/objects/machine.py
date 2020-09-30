@@ -19,7 +19,7 @@ Description:
 
 """
 
-from store_data.helper import standardizeString
+from nestor_qt.store_data.helper import standardizeString
 
 class Machine:
     """

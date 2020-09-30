@@ -17,9 +17,9 @@ THE IDEA OF THIS KPI OBJECT IS STILL IN PROCESS, LOTS OF THE IDEA MIGHT CHANGE I
 
 
 
-from store_data.objects import human
-from store_data.objects import issue
-from store_data.objects import machine
+from nestor_qt.store_data.objects import human
+from nestor_qt.store_data.objects import issue
+from nestor_qt.store_data.objects import machine
 
 
 class Equation:

@@ -22,7 +22,7 @@ Description:
     However, the hierarchy followed the rules created in this file
 """
 
-from store_data.helper import standardizeString
+from nestor_qt.store_data.helper import standardizeString
 
 class Human:
     """

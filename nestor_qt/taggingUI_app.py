@@ -40,11 +40,11 @@ dbModule_exists = (neo4j_spec is not None) and (simplecrypt_spec is not None)
 # dbModule_exists = False
 
 if dbModule_exists:
-    from store_data.database import DatabaseNeo4J
+    from nestor_qt.store_data.database import DatabaseNeo4J
     import neo4j
 
     # from nestor.ui.menu_app import DialogDatabaseRunQuery
-    from store_data.helper import resultToObservationDataframe
+    from nestor_qt.store_data.helper import resultToObservationDataframe
 
 nestorParams = nestor.CFG
 

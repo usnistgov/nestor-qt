@@ -18,14 +18,14 @@ Description:
 from tqdm import tqdm
 
 
-from store_data.objects.human import Technician, Operator
-from store_data.objects.issue import Issue
-from store_data.objects.tag import TagItem, TagSolution, TagProblem, TagUnknown, TagSolutionItem, TagProblemItem, TagNA, TagStopWord
-from store_data.objects.machine import Machine
-from store_data.objects.maintenanceworkorder import MaintenanceWorkOrder
+from nestor_qt.store_data.objects.human import Technician, Operator
+from nestor_qt.store_data.objects.issue import Issue
+from nestor_qt.store_data.objects.tag import TagItem, TagSolution, TagProblem, TagUnknown, TagSolutionItem, TagProblemItem, TagNA, TagStopWord
+from nestor_qt.store_data.objects.machine import Machine
+from nestor_qt.store_data.objects.maintenanceworkorder import MaintenanceWorkOrder
 
 
-from store_data.helper import getListIndexDataframe
+from nestor_qt.store_data.helper import getListIndexDataframe
 
 
 def cypherCreate_historicalMaintenanceWorkOrder(schema, originalDataframe, propertyToHeader_dict):

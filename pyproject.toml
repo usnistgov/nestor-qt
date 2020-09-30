@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nestor-qt"
-version = "0.3.0"
+version = "0.2.0"
 description = "Legacy (Qt5) GUI for the Nestor annotation tool"
 authors = ["tbsexton <thurston.sexton@nist.gov>",
            "saschaMoccozet"]
