@@ -18,14 +18,9 @@ _pdf
 #   special file type
 **.pyc
 **.csv
-**.yaml
 **/reveal.js
 **.h5
-
-
-# exception
-!nestor/store_data/*.yaml
-!nestor/ui/csvHeader.yaml
+**.ipynb
 
 /poetry.lock
 **/.mypy_cache/

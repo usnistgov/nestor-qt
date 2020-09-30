@@ -5,7 +5,7 @@ description = "Legacy (Qt5) GUI for the Nestor annotation tool"
 authors = ["tbsexton <thurston.sexton@nist.gov>",
            "saschaMoccozet"]
 
-include = ["*.md", "*.rst", "*.ui"]
+include = ["*.md", "*.rst", "*.ui", "*.yaml"]
 classifiers=[
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
