@@ -1993,38 +1993,7 @@ class MyTaggingToolWindow(Qw.QMainWindow, Ui_MainWindow_taggingTool):
 
         Qw.QApplication.processEvents()
 
-        # print("SAVE IN PROCESS --> " "calculating the extracted tags and statistics...")
-        # # do 1-grams
-        # print("ONE GRAMS...")
-        # tags_df = kex.tag_extractor(
-        #     self.tokenExtractor_1Gram,
-        #     self.clean_rawText,
-        #     vocab_df=self.dataframe_vocab1Gram,
-        # )
-        # # self.tags_read = kex._get_readable_tag_df(self.tags_df)
-        # window_DialogWait.setProgress(30)
-
-        # # do 2-grams
-        # print("TWO GRAMS...")
-        # tags2_df = kex.tag_extractor(
-        #     self.tokenExtractor_nGram,
-        #     self.clean_rawText_1Gram,
-        #     vocab_df=self.dataframe_vocabNGram[self.dataframe_vocabNGram.alias.notna()],
-        # )
-
-        # window_DialogWait.setProgress(60)
-
-        # # merge 1 and 2-grams.
-        # self.tag_df = tags_df.join(
-        #     tags2_df.drop(
-        #         axis="columns", labels=tags_df.columns.levels[1].tolist(), level=1
-        #     )
-        # )
-        # self.tag_readable = kex._get_readable_tag_df(self.tag_df)
-
-        # self.relation_df = self.tag_df.loc[:, ["P I", "S I"]]
-        # self.tag_df = self.tag_df.loc[:, ["I", "P", "S", "U", "NA"]]
-
+        
         (
             self.tag_df,
             self.relation_df
