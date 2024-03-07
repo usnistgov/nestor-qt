@@ -34,7 +34,7 @@ Division at NIST.
 
 ### Points of Contact
 
--   [Thurston Sexton](https://www.nist.gov/people/thurston-sexton) Nestor Technical Lead
+-   [Rachael Sexton](https://www.nist.gov/people/rachael-sexton) Nestor Technical Lead
 -   [Michael Brundage](https://www.nist.gov/people/michael-p-brundage)
     Principal Investigator
 
@@ -42,7 +42,7 @@ Division at NIST.
 
 Name             |   GitHub Handle
 ---              |   ---
-Thurston Sexton  |   [@tbsexton](https://github.com/tbsexton)
+Rachael Sexton  |   [@rtbs-dev](https://github.com/rtbs-dev)
 Sascha Moccozet  |   [@saschaMoccozet](https://github.com/saschaMoccozet)
 Michael Brundage |   [@MichaelPBrundage](https://github.com/MichaelPBrundage)
 Madhusudanan N.  |   [@msngit](https://github.com/msngit)

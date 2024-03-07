@@ -27,7 +27,7 @@ from version import get_version
 # -- Project information -----------------------------------------------------
 
 project = 'nestor-qt'
-# copyright = '2018, Thurston Sexton, Michael Brundage, Sascha Moccozet'
+# copyright = '2018, Rachael Sexton, Michael Brundage, Sascha Moccozet'
 author = "KEA Development Team"
 
 from subprocess import Popen, PIPE

@@ -24,7 +24,7 @@ class QTableWidget_token(Qw.QTableWidget):
         -------
 
         """
-        # TODO THURSTON why test_app->mywindow->setDataframe
+        # TODO RACHAEL why test_app->mywindow->setDataframe
         # Do we need all the mask and stuff ?
         self.dataframe = dataframe
 
